@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link type="text/css" href="newcss.css" rel="stylesheet"/>
+        <title>Proyecto Software2 Libros</title>
+
+    </h:head >
+    <h:body >
+        <h:form>
+            <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Listado de Libros</h2>
+
+            <div style="text-align: left; width: 85%;">
+                <hr />
+                <h3 style="text-decoration: underline;">Registrar Propiedad</h3>
+
+
+                <h:panelGroup>
+                    <h:outputLabel style="margin-right: 104px;">Poblacion:</h:outputLabel><h:inputText value="#{casaRuralBean.poblacion}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 120px;">No Dormitorios:</h:outputLabel><h:inputText value="#{casaRuralBean.noDormitorios}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 104px;">No Cocinas:</h:outputLabel><h:inputText value="#{casaRuralBean.noCocinas}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 120px;">No de Baños:</h:outputLabel><h:inputText value="#{casaRuralBean.noBaños}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 104px;">No de Comedores:</h:outputLabel><h:inputText value="#{casaRuralBean.noComedores}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 120px;">No de Garajes:</h:outputLabel><h:inputText value="#{casaRuralBean.noPlazas}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 120px;">Descripcion:</h:outputLabel><h:inputText value="#{casaRuralBean.descripcion}"></h:inputText> <br /><br />
+                
+                </h:panelGroup>
+
+                <p:commandButton value="Cancelar" update="@form" style="margin-right: 10px;" icon="ui-icon-cancel"/>
+                <p:commandButton value="Enviar"  action="#{casaRuralBean.agregar()}" update="@form" icon="ui-icon-mail-closed"/>
+                
+                <br />
+                <hr />
+            </div>
+        </h:form>
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+    </h:body>
+</html>

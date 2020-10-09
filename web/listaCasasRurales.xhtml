@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html class="contenedor" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link type="text/css" href="newcss.css" rel="stylesheet"/>
+        <title>Proyecto Software2 Libros</title>
+
+    </h:head >
+    <h:body>
+        <div align="center" class="div">
+            <h:form>
+                <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Casas Rurales</h2>
+            <h:dataTable  value="#{casaRuralBean.casasRurales}" var="casa" border="2">
+                <h:column>
+                    <f:facet name="header">Codigo</f:facet>
+                        #{casa.codigo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Poblacion</f:facet>
+                        #{casa.descripcion}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Estado</f:facet>
+                        #{casa.estado}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Acciones</f:facet>
+                    <p:commandButton value="Ver Dormitorios" action="#{dormitorioBean.listarDormitorio(casa.codigo, casa.noDormitorios)}"
+                                      style="font-size: 14px;" />
+                    <p:commandButton value="Ver Cocinas" action="#{cocinaBean.listarCocina(casa.codigo, casa.noCocinas)}"
+                                      style="font-size: 14px;" />
+                    
+                </h:column>
+                
+            </h:dataTable>
+            <br /><br />
+            <h:commandButton value="Agegar Propiedad" action="#{casaRuralBean.agregarPropiedad()}"
+                                      style="font-size: 14px;"></h:commandButton>
+          </h:form>                            
+        </div> 
+   
+        <p:dialog header="Registrar Dormitorio" id="myDialogVar" widgetVar="myDialogVar">
+            <h:form>
+                <h:outputLabel>Registre Dormitorio: </h:outputLabel>
+                <h:outputLabel style="margin-right: 104px;">No de Camas Sencilas:</h:outputLabel><h:inputText value="#{dormitorioBean.noCamasSencillas}"></h:inputText> <br /><br />
+                <h:outputLabel style="margin-right: 120px;">No de Camas Dobles:</h:outputLabel><h:inputText value="#{dormitorioBean.noCamasDobles}"></h:inputText> <br /><br />
+                <h:outputLabel style="margin-right: 104px;">Baño:</h:outputLabel><h:selectOneMenu value="#{dormitorioBean.baño}">
+                    <f:selectItem itemValue="1" itemLabel="Si" />
+                    <f:selectItem itemValue="2" itemLabel="No" />
+                </h:selectOneMenu> <br /><br />
+                    
+                <br /><br />
+                <p:commandButton value="Guadar" action="#{dormitorioBean.agregarDormitorio()}"/>
+            
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog header="Registrar Cocina" id="myCocina" widgetVar="myCocina" width="1100">
+            <h:form>
+                <h:outputLabel>Registre Cocina: </h:outputLabel>
+                <h:outputLabel style="margin-right: 104px;">LavaVajilla:</h:outputLabel><h:selectOneMenu value="#{cocinaBean.vajilla}">
+                    <f:selectItem itemValue="1" itemLabel="Si" />
+                    <f:selectItem itemValue="2" itemLabel="No" />
+                </h:selectOneMenu> <br /><br />
+                <h:outputLabel style="margin-right: 104px;">Lavadora:</h:outputLabel><h:selectOneMenu value="#{cocinaBean.lavadora}">
+                    <f:selectItem itemValue="1" itemLabel="Si" />
+                    <f:selectItem itemValue="2" itemLabel="No" />
+                </h:selectOneMenu>
+                <br /><br />
+                <h:commandButton value="Registra Cocina" action="#{cocinaBean.agregarCocina()}"
+                                      style="font-size: 14px;"></h:commandButton>
+            </h:form> 
+
+        </p:dialog>
+        <p:dialog header="Lista de Dormitorios" id="listaDormitorios" widgetVar="listaDormitorios">
+        <h:form>
+           <h:dataTable  value="#{dormitorioBean.dormitorios}" var="dormitorios" border="2" >
+                <h:column>
+                    <f:facet name="header">Casa Rural</f:facet>
+                        #{dormitorios.casaRural}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">No camas Dobles</f:facet>
+                        #{dormitorios.noCamasDobles}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">No camas Sencillas</f:facet>
+                        #{dormitorios.noCamasSencillas}
+                </h:column>
+            </h:dataTable>
+            <h:commandButton value="Registra Dormitorio" action="#{dormitorioBean.formularioDormitorio()}"
+                                      style="font-size: 14px;"></h:commandButton>
+            
+                </h:form>
+        </p:dialog>
+        
+        <p:dialog header="Lista de Cocinas" id="listaCocinas" widgetVar="listaCocinas">
+            <h:form>
+                <h:dataTable  value="#{cocinaBean.cocinas}" var="cocina" border="2" >
+                <h:column>
+                    <f:facet name="header">Casa Rural</f:facet>
+                        #{cocina.casaRural}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Lavadora</f:facet>
+                        #{cocina.lavadora}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Vajilla</f:facet>
+                        #{cocina.vajilla}
+                </h:column>
+            </h:dataTable>
+            <h:commandButton value="Registrar Cocina" action="#{cocinaBean.formularioCocina()}"
+                                      style="font-size: 14px;"></h:commandButton>
+            </h:form>
+        </p:dialog>
+        <p:dialog header="Registrar Propiedad" id="myPropiedad" widgetVar="myPropiedad" >
+            <h:form>
+                <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Listado de Libros</h2>
+
+            <div style="text-align: left; width: 85%;">
+                <hr />
+                <h3 style="text-decoration: underline;">Registrar Propiedad</h3>
+
+
+                <h:panelGroup>
+                    <h:outputLabel style="margin-right: 104px;">Poblacion:</h:outputLabel><h:inputText value="#{casaRuralBean.poblacion}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 120px;">No Dormitorios:</h:outputLabel><h:inputText value="#{casaRuralBean.noDormitorios}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 104px;">No Cocinas:</h:outputLabel><h:inputText value="#{casaRuralBean.noCocinas}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 120px;">No de Baños:</h:outputLabel><h:inputText value="#{casaRuralBean.noBaños}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 104px;">No de Comedores:</h:outputLabel><h:inputText value="#{casaRuralBean.noComedores}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 120px;">No de Garajes:</h:outputLabel><h:inputText value="#{casaRuralBean.noPlazas}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 120px;">Descripcion:</h:outputLabel><h:inputText value="#{casaRuralBean.descripcion}"></h:inputText> <br /><br />
+                
+                </h:panelGroup>
+
+                <p:commandButton value="Cancelar" action="#{casaRuralBean.cancelar()}" update="@form" style="margin-right: 10px;" icon="ui-icon-cancel"/>
+                <p:commandButton value="Enviar"  action="#{casaRuralBean.agregar()}" update="@form" icon="ui-icon-mail-closed"/>
+                
+                <br />
+                <hr />
+            </div>
+            </h:form>
+        </p:dialog>
+    
+    </h:body> 
+</html>
