@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -43,8 +44,6 @@ public class CasaRuralBean implements Serializable  {
         context.execute("PF('myPropiedad').show();");
     }
     
-    
-    
     public void agregar() throws ClassNotFoundException, SQLException{
         
         connect=conexion.conectar();
@@ -52,14 +51,14 @@ public class CasaRuralBean implements Serializable  {
         PreparedStatement pstmt = connect.prepareStatement("insert into casarural(descripcion, estado, noBaños, noCocinas, noComedores, noDormitorios, noPlazas, poblacion, Propietario_cedula) value ( '"+descripcion+"','"+estado+"',"+noBaños+","+noCocinas+","+noComedores+","+noDormitorios+","+noPlazas+",'"+poblacion+"','1' )");
         int rs = pstmt.executeUpdate();
         
-         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('myPropiedad').hide();");
         
     }
+    
     public void cancelar() throws ClassNotFoundException, SQLException{
         
-       
-         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('myPropiedad').hide();");
         
     }

@@ -16,15 +16,15 @@ and open the template in the editor.
     </h:head >
     <h:body>
         <div align="center" class="div">
-            <h:form>
+            <h:form id="propiedades">
                 <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Casas Rurales</h2>
-            <h:dataTable  value="#{casaRuralBean.casasRurales}" var="casa" border="2">
+            <h:dataTable  value="#{casaRuralBean.casasRurales}" var="casa" border="2" id="listadoPropiedades" style="background-color: azure; width: 85%;">
                 <h:column>
                     <f:facet name="header">Codigo</f:facet>
                         #{casa.codigo}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Poblacion</f:facet>
+                    <f:facet name="header">Descripción</f:facet>
                         #{casa.descripcion}
                 </h:column>
                 <h:column>
@@ -144,7 +144,7 @@ and open the template in the editor.
                 </h:panelGroup>
 
                 <p:commandButton value="Cancelar" action="#{casaRuralBean.cancelar()}" update="@form" style="margin-right: 10px;" icon="ui-icon-cancel"/>
-                <p:commandButton value="Enviar"  action="#{casaRuralBean.agregar()}" update="@form" icon="ui-icon-mail-closed"/>
+                <p:commandButton value="Enviar"  action="#{casaRuralBean.agregar()}" update=":propiedades:listadoPropiedades" icon="ui-icon-mail-closed"/>
                 
                 <br />
                 <hr />

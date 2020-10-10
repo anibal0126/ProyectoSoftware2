@@ -12,8 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -41,6 +43,7 @@ public class DormitorioBean implements Serializable{
         
         dormitorios=dormitoriosCasa;
 
+        RequestContext.getCurrentInstance().update("listaDormitorios");
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('listaDormitorios').show();");
     }
@@ -104,8 +107,7 @@ public class DormitorioBean implements Serializable{
             
             System.out.println("No puede retornar mas dormitorios");
             
-            return;
-            
+            return; 
         }
         
         RequestContext context = RequestContext.getCurrentInstance();

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html class="contenedor" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link type="text/css" href="newcss.css" rel="stylesheet"/>
+        <title>Proyecto Software2 Reserva de Casas Rurales</title>
+
+    </h:head >
+    <h:body>
+        
+        <div align="center" class="div">
+            <h:form>
+                <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Listado de Reservas de Casas Rurales</h2><br />
+                <p:commandButton value="Reservar Propiedad" action="#{reservaPropiedadBean.reservarPropiedad()}" style="font-size: 14px; float: left !important; margin-left: 87px;"></p:commandButton><br /><br /><br />
+                <h:dataTable  value="#{reservaPropiedadBean.reservas}" var="reserva" border="2" id="listadoReservas" style="background-color: azure; width: 85%;">
+                <h:column>
+                    <f:facet name="header">No. de reserva</f:facet>
+                        #{reserva.noReserva}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha inicio</f:facet>
+                        #{reserva.fechaInicioReserva}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha fin</f:facet>
+                        #{reserva.fechaFinReserva}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Estado del pago</f:facet>
+                        #{reserva.estadoPago}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Casa entera</f:facet>
+                        #{reserva.casaEntera}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Precio</f:facet>
+                        #{reserva.precio}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Estado reserva</f:facet>
+                        #{reserva.estadoReserva}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Usuario</f:facet>
+                        #{reserva.usuario}
+                </h:column>
+            </h:dataTable>
+            <br /><br />
+            
+          </h:form>                            
+        </div>
+        
+        <p:dialog header="Reservar Propiedad" id="formularioReserva" widgetVar="formularioReserva">
+            <h:form>
+                <h:outputLabel style="margin-right: 104px;">Fecha inicio de la reserva: </h:outputLabel><h:inputText value="#{reservaPropiedadBean.fechaInicioReserva}"></h:inputText> <br /><br />
+                <h:outputLabel style="margin-right: 104px;">Fecha fin de la reserva: </h:outputLabel><h:inputText value="#{reservaPropiedadBean.fechaFinReserva}"></h:inputText> <br /><br />
+                <h:outputLabel style="margin-right: 120px;">Estado del pago: </h:outputLabel><h:inputText value="#{reservaPropiedadBean.estadoPago}"></h:inputText> <br /><br />
+                <h:outputLabel style="margin-right: 104px;">Casa entera: </h:outputLabel> <h:selectOneMenu value="#{reservaPropiedadBean.casaEntera}">
+                                                                                            <f:selectItem itemValue="Si" itemLabel="Si" />
+                                                                                            <f:selectItem itemValue="No" itemLabel="No" />
+                                                                                        </h:selectOneMenu> <br /><br />
+                <h:outputLabel style="margin-right: 104px;">Precio: </h:outputLabel><h:inputText value="#{reservaPropiedadBean.precio}"></h:inputText> <br /><br />
+                <h:outputLabel style="margin-right: 104px;">Estado de la reserva: </h:outputLabel><h:selectOneMenu value="#{reservaPropiedadBean.estadoReserva}">
+                                                                                                    <f:selectItem itemValue="Reservada" itemLabel="Reservada" />
+                                                                                                    <f:selectItem itemValue="Pendiente" itemLabel="Pendiente" />
+                                                                                                    <f:selectItem itemValue="Cancelada" itemLabel="Cancelada" />
+                                                                                                </h:selectOneMenu> <br /><br />
+                <h:outputLabel style="margin-right: 104px;">Usuario: </h:outputLabel> <h:selectOneMenu value="#{reservaPropiedadBean.usuario}">
+                                                                                        <f:selectItems value="#{reservaPropiedadBean.listarUsuarios}" 
+                                                                                                       var="usuarioP"
+                                                                                                       itemValue="#{usuarioP.id}"
+                                                                                                       itemLabel="#{usuarioP.nombreCompleto}"/>
+                                                                                    </h:selectOneMenu> <br /><br />
+                    
+                <br /><br />
+                <p:commandButton  value="Guardar"
+                                  action="#{reservaPropiedadBean.guardarReserva()}" />
+            
+            </h:form>
+        </p:dialog>    
+    </h:body> 
+</html>

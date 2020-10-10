@@ -11,4 +11,42 @@ package modelo;
  */
 public class Usuario {
     
+    private int id;
+    private String nombreCompleto;
+    
+    public Usuario(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+    
+    public Usuario(int id, String nombreCompleto) {
+        this.id = id;
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public Usuario() {
+       
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    @Override
+    public String toString() {
+        return nombreCompleto;
+    }
+    
+    
 }

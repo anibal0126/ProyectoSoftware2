@@ -39,6 +39,7 @@ public class cocinaBean implements Serializable {
         
         cocinas=cocinascasa;
 
+        RequestContext.getCurrentInstance().update("listaCocinas");
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('listaCocinas').show();");
     }
@@ -71,7 +72,7 @@ public class cocinaBean implements Serializable {
         
         if(noCocinas>=cocinas){
             
-            System.out.println("No puede retornar mas dormitorios");
+            System.out.println("No puede retornar mas cocinas");
             
             return;
             
