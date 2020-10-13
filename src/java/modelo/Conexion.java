@@ -12,7 +12,12 @@ import java.sql.SQLException;
 
 /**
  *
- * @author USUARIO
+ * @author German Gonzales
+ * @author Alexis Castrillo
+ * @author Darwin Bonilla
+ * @author Camilo Ortiz
+ * @autor Anibal Muñoz 
+ * Clase que permite la conexion 
  */
 public class Conexion implements Serializable{
     
@@ -25,10 +30,10 @@ public class Conexion implements Serializable{
      */
     public Connection conectar() throws ClassNotFoundException {
 
-        String url = "jdbc:mysql://localhost:3306/proyecto";
+        String url = "jdbc:mysql://localhost:3306/proyectosoftware2";
 
         String username = "root";
-        String password = "0711";
+        String password = "12345";
 
         try {
 

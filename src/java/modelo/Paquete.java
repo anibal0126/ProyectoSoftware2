@@ -7,7 +7,11 @@ package modelo;
 
 /**
  *
- * @author USUARIO
+ * @author German Gonzales
+ * @author Alexis Castrillo
+ * @author Darwin Bonilla
+ * @author Camilo Ortiz
+ * @autor Anibal Muñoz 
  */
 public class Paquete {
     

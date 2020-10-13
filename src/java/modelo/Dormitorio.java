@@ -7,7 +7,12 @@ package modelo;
 
 /**
  *
- * @author USUARIO
+ * @author German Gonzales
+ * @author Alexis Castrillo
+ * @author Darwin Bonilla
+ * @author Camilo Ortiz
+ * @autor Anibal Muñoz 
+ * Dormitorio de la propiedad
  */
 public class Dormitorio {
     
