@@ -26,9 +26,9 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class CasaRuralBean implements Serializable  {
     
-    public int  noDormitorios, noCocinas, noBaños, noComedores, noPlazas;
+    public int  noDormitorios, noCocinas, noBaños, noComedores, noPlazas, codigoCasaRural;
     
-    public String poblacion, descripcion, estado;
+    public String poblacion, descripcion, estado, filtroPoblacion, filtroId;
     
     Conexion conexion=new Conexion();
     
@@ -98,6 +98,92 @@ public class CasaRuralBean implements Serializable  {
 
         return casasRurales;
     }
+    public List<CasaRural> getCasasRuralesFiltro() throws ClassNotFoundException, SQLException {
+
+        connect=conexion.conectar();
+        System.out.println("Entro a listar los libros");
+
+        List<CasaRural> casasRurales = new ArrayList<>();
+        String consulta = "select codigo, poblacion from casarural";
+        System.out.println("Filtro: " + filtroPoblacion);
+
+        if (filtroPoblacion != null) {
+
+            if (!filtroPoblacion.equalsIgnoreCase("")) {
+                System.out.println("Entro filtroNombre: " + filtroPoblacion);
+                consulta = "select codigo, poblacion from casarural WHERE poblacion = '" + filtroPoblacion + "'";
+            }
+        }
+
+        if (filtroId != null) {
+
+            if (!filtroId.equalsIgnoreCase("")) {
+                System.out.println("Entro filtroAutor: " + filtroId);
+                consulta = "select codigo, poblacion from casarural WHERE codigo = '" + filtroId + "'";
+            }
+        }
+
+        PreparedStatement pstmt = connect.prepareStatement(consulta);
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+
+            CasaRural casa = new CasaRural();
+            casa.setCodigo(rs.getInt("codigo"));
+            casa.setPoblacion(rs.getString("poblacion"));
+            
+
+            casasRurales.add(casa);
+
+        }
+
+        // close resources
+        rs.close();
+        pstmt.close();
+
+        return casasRurales;
+
+    }
+    
+    /**
+     * Me permite listar las calificaciones
+     *
+     * @param id id de libro calificacion
+     */
+    public void listarCasaRural(int id) {
+
+        codigoCasaRural = id;
+
+        System.out.println("OKEY: " + codigoCasaRural);
+
+        RequestContext.getCurrentInstance().update("listadoEspecificaciones");
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('listadoEspecificaciones').show();");
+    }
+    public void limpiarFiltros() {
+
+        filtroPoblacion = "";
+        filtroId = "";
+    }
+
+    public String getFiltroPoblacion() {
+        return filtroPoblacion;
+    }
+
+    public void setFiltroPoblacion(String filtroPoblacion) {
+        this.filtroPoblacion = filtroPoblacion;
+    }
+
+    public String getFiltroId() {
+        return filtroId;
+    }
+
+    public void setFiltroId(String filtroId) {
+        this.filtroId = filtroId;
+    }
+
+    
 
     public int getNoDormitorios() {
         return noDormitorios;

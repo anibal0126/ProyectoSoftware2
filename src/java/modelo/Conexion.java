@@ -28,7 +28,7 @@ public class Conexion implements Serializable{
         String url = "jdbc:mysql://localhost:3306/software2";
 
         String username = "root";
-        String password = "cne7";
+        String password = "0711";
 
         try {
 

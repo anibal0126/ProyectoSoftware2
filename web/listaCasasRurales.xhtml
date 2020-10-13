@@ -15,6 +15,17 @@ and open the template in the editor.
 
     </h:head >
     <h:body>
+        <h:form>
+    <p:growl id="messages" showDetail="true"/>
+ 
+        <p:menuButton value="Opciones">
+            <p:menuitem value="Buscar"   update="messages" icon="pi pi-save"/>
+            <p:menuitem value="Modificar"  ajax="false" icon="pi pi-times"/>
+            <p:menuitem value="Reservar"  ajax="false" icon="pi pi-times"/>
+            <p:separator />
+            <p:menuitem value="Volver" url="http://www.primefaces.org" icon="pi pi-home"/>
+        </p:menuButton>
+</h:form>
         <div align="center" class="div">
             <h:form id="propiedades">
                 <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Casas Rurales</h2>
@@ -46,9 +57,51 @@ and open the template in the editor.
             <h:commandButton value="Agegar Propiedad" action="#{casaRuralBean.agregarPropiedad()}"
                                       style="font-size: 14px;"></h:commandButton>
           </h:form>                            
-        </div> 
+        </div>
+        
+        <p:dialog header="Tabla de Especificaciones" id="listadoEspecificaciones" widgetVar="listadoEspecificaciones">
+            <h:form>
+                <h:dataTable value="#{libroBean.calificaciones}" var="calificacion" border="2">
+
+                    <h:column>
+                        <f:facet name="header">Fecha</f:facet>
+                            #{calificacion.fecha}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Calificación</f:facet>
+                            #{calificacion.calificacion}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Usuario</f:facet>
+                            #{calificacion.usuario}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Id Libro</f:facet>
+                            #{calificacion.idLibro}
+                    </h:column>
+
+                </h:dataTable>
+            </h:form> 
+
+        </p:dialog>
    
         <p:dialog header="Registrar Dormitorio" id="myDialogVar" widgetVar="myDialogVar">
+            <h:form>
+                <h:outputLabel>Registre Dormitorio: </h:outputLabel>
+                <h:outputLabel style="margin-right: 104px;">No de Camas Sencilas:</h:outputLabel><h:inputText value="#{dormitorioBean.noCamasSencillas}"></h:inputText> <br /><br />
+                <h:outputLabel style="margin-right: 120px;">No de Camas Dobles:</h:outputLabel><h:inputText value="#{dormitorioBean.noCamasDobles}"></h:inputText> <br /><br />
+                <h:outputLabel style="margin-right: 104px;">Baño:</h:outputLabel><h:selectOneMenu value="#{dormitorioBean.baño}">
+                    <f:selectItem itemValue="1" itemLabel="Si" />
+                    <f:selectItem itemValue="2" itemLabel="No" />
+                </h:selectOneMenu> <br /><br />
+                    
+                <br /><br />
+                <p:commandButton value="Guadar" action="#{dormitorioBean.agregarDormitorio()}"/>
+            
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog header="Buscar Por Poblacion" id="buscarPorPoblacion" widgetVar="buscarPorPoblacion">
             <h:form>
                 <h:outputLabel>Registre Dormitorio: </h:outputLabel>
                 <h:outputLabel style="margin-right: 104px;">No de Camas Sencilas:</h:outputLabel><h:inputText value="#{dormitorioBean.noCamasSencillas}"></h:inputText> <br /><br />

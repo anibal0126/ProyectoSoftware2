@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html class="contenedor" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <h:head>
+        <link type="text/css" href="newcss.css" rel="stylesheet"/>
+        <title>Proyecto Software2 </title>
+
+    </h:head >
+    <h:body >
+        <div align="center" class="div">
+            <h:form id="listado">
+            <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Listado de Libros</h2>
+            
+            <div style="text-align: left; width: 85%;">
+                <hr />
+                <h3 style="text-decoration: underline;">Filtros de búsqueda</h3>
+ 
+ 
+                <h:panelGroup>
+                    <h:outputLabel style="margin-right: 104px;">Poblacion:</h:outputLabel><h:inputText value="#{casaRuralBean.filtroPoblacion}"></h:inputText> <br /><br />
+                    <h:outputLabel style="margin-right: 120px;">Id:</h:outputLabel><h:inputText value="#{casaRuralBean.filtroId}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"></h:inputText> <br /><br />
+                   </h:panelGroup>
+                
+                <p:commandButton value="Buscar" update="@form" style="margin-right: 10px;" icon="ui-icon-search"/>
+                <p:commandButton value="Limpiar filtros" action="#{casaRuralBean.limpiarFiltros}" update="@form" icon="ui-icon-arrowrefresh-1-w"/>
+                <br />
+                <hr />
+            </div>
+            
+            <h:dataTable  value="#{casaRuralBean.casasRuralesFiltro}" var="filtros" border="2" id="filtros" rendered="#{casaRuralBean.casasRuralesFiltro.size() != 0}" style="background-color: azure; width: 85%;" columnClasses="column1,column2,column3,column4,column5,column6">
+                <h:column>
+                    <f:facet name="header">codigo</f:facet>
+                        #{filtros.codigo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Poblacion</f:facet>
+                        #{filtros.poblacion}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Acciones</f:facet>
+                    <p:commandButton value="Ver Dormitorios" action="#{dormitorioBean.listarDormitorioPoblacion(filtros.codigo, filtros.noDormitorios)}"
+                                     style="font-size: 14px;" />
+                    <p:commandButton value="Ver Cocinas" action="#{cocinaBean.listarCocina(filtros.codigo, filtros.noCocinas)}"
+                                      style="font-size: 14px;"/>
+                    
+                </h:column>
+            </h:dataTable>
+            <h:outputText style="font-weight: bold; font-size: 20px;" value="No se encontraron registros" rendered="#{libroBean.libros.size() == 0}"/>
+            
+            <p:dialog header="Lista de Dormitorios" id="listaDormitoriospoblacion" widgetVar="listaDormitoriospoblacion">
+                <h:form id="listadoDormitoriosform">
+                    
+                    <h:dataTable  value="#{dormitorioBean.dormitorios}" id="listadoDormi"  var="dormitorios" border="2" >
+                <h:column>
+                    <f:facet name="header">Casa Rural</f:facet>
+                        #{dormitorios.casaRural}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">No camas Dobles</f:facet>
+                        #{dormitorios.noCamasDobles}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">No camas Sencillas</f:facet>
+                        #{dormitorios.noCamasSencillas}
+                </h:column>
+            </h:dataTable>
+            <h:commandButton value="Registra Dormitorio" action="#{dormitorioBean.formularioDormitorio()}"
+                                      style="font-size: 14px;"></h:commandButton>
+            
+                </h:form>
+        </p:dialog>
+            
+            <br/>
+        </h:form>
+        </div>
+    </h:body>
+</html>

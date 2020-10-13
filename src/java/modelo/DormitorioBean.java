@@ -39,13 +39,21 @@ public class DormitorioBean implements Serializable{
          
         casaRural=casa; 
         
-        System.out.println(casa+"porque");
-        
         dormitorios=dormitoriosCasa;
 
         RequestContext.getCurrentInstance().update("listaDormitorios");
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('listaDormitorios').show();");
+    }
+     public void listarDormitorioPoblacion(int casa, int dormitoriosCasa) throws SQLException, ClassNotFoundException {
+         
+        casaRural=casa; 
+        
+        dormitorios=dormitoriosCasa;
+
+        RequestContext.getCurrentInstance().update("listaDormitoriospoblacion");
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('listaDormitoriospoblacion').show();");
     }
      
      public List<Dormitorio> getDormitorios() throws ClassNotFoundException, SQLException {
@@ -55,7 +63,7 @@ public class DormitorioBean implements Serializable{
         System.out.println(casaRural+"Ws");
         
         List<Dormitorio> dormitorios1;
-       dormitorios1 = new ArrayList<>();
+        dormitorios1 = new ArrayList<>();
         String consulta = "select CasaRural_codigo, noCamasDobles, noCamasSencillas from dormitorio where CasaRural_codigo="+casaRural;
 
         PreparedStatement pstmt = connect.prepareStatement(consulta);

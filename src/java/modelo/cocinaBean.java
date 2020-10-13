@@ -43,6 +43,16 @@ public class cocinaBean implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('listaCocinas').show();");
     }
+     public void listarCocinaPoblacion(int casa, int cocinascasa) throws SQLException, ClassNotFoundException {
+         
+        casaRural=casa; 
+        
+        cocinas=cocinascasa;
+
+        RequestContext.getCurrentInstance().update("listaCocinas");
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('listaCocinas').show();");
+    }
     
     public void agregarCocina() throws ClassNotFoundException, SQLException{
         
