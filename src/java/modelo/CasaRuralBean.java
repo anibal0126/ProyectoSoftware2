@@ -37,9 +37,7 @@ public class CasaRuralBean implements Serializable  {
     DormitorioBean dormitorio=new DormitorioBean();
     
     public void agregarPropiedad() {
-        
-      
-
+   
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('myPropiedad').show();");
     }
@@ -49,6 +47,19 @@ public class CasaRuralBean implements Serializable  {
         connect=conexion.conectar();
         
         PreparedStatement pstmt = connect.prepareStatement("insert into casarural(descripcion, estado, noBaños, noCocinas, noComedores, noDormitorios, noPlazas, poblacion, Propietario_cedula) value ( '"+descripcion+"','"+estado+"',"+noBaños+","+noCocinas+","+noComedores+","+noDormitorios+","+noPlazas+",'"+poblacion+"','1' )");
+        int rs = pstmt.executeUpdate();
+        
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('myPropiedad').hide();");
+        
+    }
+    
+    
+    public void modificarPropiedad()throws ClassNotFoundException, SQLException{
+        
+        connect=conexion.conectar();
+        
+        PreparedStatement pstmt = connect.prepareStatement("update casarural set descricion = '"+descripcion+"'"+", estado = '"+estado+"'"+", noCocinas = '"+noCocinas+"'"+", noComedores = '"+noComedores+"'"+", noDormitorios = '"+noDormitorios+"'"+", noPlazas = '"+noPlazas+"'"+", poblacion = '"+poblacion+"'"+"where codigoCasaRural = '"+codigoCasaRural+"'");
         int rs = pstmt.executeUpdate();
         
         RequestContext context = RequestContext.getCurrentInstance();

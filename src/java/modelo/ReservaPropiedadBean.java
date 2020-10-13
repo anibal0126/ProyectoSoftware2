@@ -20,23 +20,23 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean
 @ViewScoped
-public class ReservaPropiedadBean implements Serializable  {
-    
+public class ReservaPropiedadBean implements Serializable {
+
     public String fechaInicioReserva, fechaFinReserva, estadoPago, casaEntera, precio, estadoReserva;
 
     public Usuario usuario;
     public List<Usuario> usuarios;
-    
+
     Conexion conexion = new Conexion();
-    
+
     Connection connect = null;
-    
+
     public List<Usuario> getListarUsuarios() throws SQLException, ClassNotFoundException {
-        
+
         usuarios = new ArrayList<>();
-        
+
         connect = conexion.conectar();
-        
+
         String consulta = "SELECT cedula, nombreCompleto FROM Usuario";
 
         PreparedStatement pstmt = connect.prepareStatement(consulta);
@@ -50,46 +50,46 @@ public class ReservaPropiedadBean implements Serializable  {
 
             usuarios.add(usuarioListado);
         }
-        
+
         // close resources
         rs.close();
         pstmt.close();
 
         return usuarios;
     }
-    
+
     public void reservarPropiedad() {
-        
+
         System.out.println("Va a reservar...");
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('formularioReserva').show();");
     }
-    
-    public void guardarReserva() throws ClassNotFoundException, SQLException{
-        
+
+    public void guardarReserva() throws ClassNotFoundException, SQLException {
+
         System.out.println("Entro a reservar");
-        
+
         connect = conexion.conectar();
-        
-        PreparedStatement pstmt = connect.prepareStatement("INSERT INTO Reserva (fechaInicioReserva, fechaFinReserva, estadoPago, casaEntera, precio, estadoReserva, Usuario_cedula) value ( '"+fechaInicioReserva+"','"+fechaFinReserva+"','"+estadoPago+"','"+casaEntera+"','"+precio+"','"+estadoReserva+"',"+usuario.getId()+")");
+
+        PreparedStatement pstmt = connect.prepareStatement("INSERT INTO Reserva (fechaInicioReserva, fechaFinReserva, estadoPago, casaEntera, precio, estadoReserva, Usuario_cedula) value ( '" + fechaInicioReserva + "','" + fechaFinReserva + "','" + estadoPago + "','" + casaEntera + "','" + precio + "','" + estadoReserva + "'," + usuario.getId() + ")");
         int rs = pstmt.executeUpdate();
-        
+
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('formularioReserva').hide();");
-        
+
     }
-    
-    public void cancelar() throws ClassNotFoundException, SQLException{
-        
+
+    public void cancelar() throws ClassNotFoundException, SQLException {
+
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("PF('formularioReserva').hide();");
-        
+
     }
-    
+
     public List<ReservaPropiedad> getReservas() throws ClassNotFoundException, SQLException {
-        
+
         connect = conexion.conectar();
-        
+
         List<ReservaPropiedad> listadoReservas = new ArrayList<>();
         String consulta = "SELECT r.noReserva, r.fechaInicioReserva, r.fechaFinReserva, r.estadoPago, r.casaEntera, r.precio, r.estadoReserva, u.nombreCompleto FROM Reserva r JOIN Usuario u ON r.Usuario_cedula = u.cedula";
 
@@ -98,7 +98,7 @@ public class ReservaPropiedadBean implements Serializable  {
 
         while (rs.next()) {
 
-            ReservaPropiedad reserva= new ReservaPropiedad();
+            ReservaPropiedad reserva = new ReservaPropiedad();
             reserva.setNoReserva(rs.getInt("noReserva"));
             reserva.setFechaInicioReserva(rs.getString("fechaInicioReserva"));
             reserva.setFechaFinReserva(rs.getString("fechaFinReserva"));
@@ -125,7 +125,7 @@ public class ReservaPropiedadBean implements Serializable  {
     public void setFechaInicioReserva(String fechaInicioReserva) {
         this.fechaInicioReserva = fechaInicioReserva;
     }
-    
+
     public String getFechaFinReserva() {
         return fechaFinReserva;
     }
@@ -173,5 +173,5 @@ public class ReservaPropiedadBean implements Serializable  {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
 }
