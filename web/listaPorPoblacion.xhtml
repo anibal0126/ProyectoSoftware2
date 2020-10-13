@@ -16,6 +16,17 @@ and open the template in the editor.
 
     </h:head >
     <h:body >
+        <h:form>
+    <p:growl id="messages" showDetail="true"/>
+ 
+        <p:menuButton value="Opciones">
+            <p:menuitem value="Agegar Propiedad"  url="listaCasasRurales.xhtml" update="messages" icon="pi pi-save"/>
+            <p:menuitem value="Modificar"  ajax="false" icon="pi pi-times"/>
+            <p:menuitem value="Reservar" url="listadoReservas.xhtml" ajax="false" icon="pi pi-times"/>
+            <p:separator />
+            <p:menuitem value="Volver" url="http://www.primefaces.org" icon="pi pi-home"/>
+        </p:menuButton>
+</h:form>
         <div align="center" class="div">
             <h:form id="listado">
             <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Listado de Libros</h2>
@@ -49,7 +60,7 @@ and open the template in the editor.
                     <f:facet name="header">Acciones</f:facet>
                     <p:commandButton value="Ver Dormitorios" action="#{dormitorioBean.listarDormitorioPoblacion(filtros.codigo, filtros.noDormitorios)}"
                                      style="font-size: 14px;" />
-                    <p:commandButton value="Ver Cocinas" action="#{cocinaBean.listarCocina(filtros.codigo, filtros.noCocinas)}"
+                    <p:commandButton value="Ver Cocinas" action="#{cocinaBean.listarCocinaPoblacion(filtros.codigo, filtros.noCocinas)}"
                                       style="font-size: 14px;"/>
                     
                 </h:column>
@@ -73,10 +84,28 @@ and open the template in the editor.
                         #{dormitorios.noCamasSencillas}
                 </h:column>
             </h:dataTable>
-            <h:commandButton value="Registra Dormitorio" action="#{dormitorioBean.formularioDormitorio()}"
-                                      style="font-size: 14px;"></h:commandButton>
+           
             
                 </h:form>
+        </p:dialog>
+            <p:dialog header="Lista de Cocinas" id="listaCocinasPoblacion" widgetVar="listaCocinasPoblacion">
+            <h:form>
+                <h:dataTable  value="#{cocinaBean.cocinas}" var="cocina" border="2" >
+                <h:column>
+                    <f:facet name="header">Casa Rural</f:facet>
+                        #{cocina.casaRural}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Lavadora</f:facet>
+                        #{cocina.lavadora}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Vajilla</f:facet>
+                        #{cocina.vajilla}
+                </h:column>
+            </h:dataTable>
+            
+            </h:form>
         </p:dialog>
             
             <br/>

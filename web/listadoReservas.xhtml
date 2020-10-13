@@ -15,7 +15,17 @@ and open the template in the editor.
 
     </h:head >
     <h:body>
-        
+        <h:form>
+    <p:growl id="messages" showDetail="true"/>
+ 
+        <p:menuButton value="Opciones">
+            <p:menuitem value="Buscar"  url="listaPorPoblacion.xhtml" update="messages" icon="pi pi-save"/>
+            <p:menuitem value="Modificar"  ajax="false" icon="pi pi-times"/>
+            <p:menuitem value="Agregar Propiedad" url="/faces/listaCasasRurales.xhtml" ajax="false" icon="pi pi-times"/>
+            <p:separator />
+            <p:menuitem value="Volver" url="http://www.primefaces.org" icon="pi pi-home"/>
+        </p:menuButton>
+</h:form>
         <div align="center" class="div">
             <h:form>
                 <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Listado de Reservas de Casas Rurales</h2><br />

@@ -19,9 +19,9 @@ and open the template in the editor.
     <p:growl id="messages" showDetail="true"/>
  
         <p:menuButton value="Opciones">
-            <p:menuitem value="Buscar"   update="messages" icon="pi pi-save"/>
+            <p:menuitem value="Buscar"  url="listaPorPoblacion.xhtml" update="messages" icon="pi pi-save"/>
             <p:menuitem value="Modificar"  ajax="false" icon="pi pi-times"/>
-            <p:menuitem value="Reservar"  ajax="false" icon="pi pi-times"/>
+            <p:menuitem value="Reservar" url="/faces/listadoReservas.xhtml" ajax="false" icon="pi pi-times"/>
             <p:separator />
             <p:menuitem value="Volver" url="http://www.primefaces.org" icon="pi pi-home"/>
         </p:menuButton>
