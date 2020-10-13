@@ -20,9 +20,9 @@ and open the template in the editor.
     <p:growl id="messages" showDetail="true"/>
  
         <p:menuButton value="Opciones">
-            <p:menuitem value="Agegar Propiedad"  url="listaCasasRurales.xhtml" update="messages" icon="pi pi-save"/>
+            <p:menuitem value="Agegar Propiedad"  url="/faces/listaCasasRurales.xhtml" update="messages" icon="pi pi-save"/>
             <p:menuitem value="Modificar"  ajax="false" icon="pi pi-times"/>
-            <p:menuitem value="Reservar" url="listadoReservas.xhtml" ajax="false" icon="pi pi-times"/>
+            <p:menuitem value="Reservar" url="/faces/listadoReservas.xhtml" ajax="false" icon="pi pi-times"/>
             <p:separator />
             <p:menuitem value="Volver" url="http://www.primefaces.org" icon="pi pi-home"/>
         </p:menuButton>
@@ -66,7 +66,7 @@ and open the template in the editor.
                 </h:column>
             </h:dataTable>
             <h:outputText style="font-weight: bold; font-size: 20px;" value="No se encontraron registros" rendered="#{libroBean.libros.size() == 0}"/>
-            
+             </h:form>
             <p:dialog header="Lista de Dormitorios" id="listaDormitoriospoblacion" widgetVar="listaDormitoriospoblacion">
                 <h:form id="listadoDormitoriosform">
                     
@@ -109,7 +109,7 @@ and open the template in the editor.
         </p:dialog>
             
             <br/>
-        </h:form>
+       
         </div>
     </h:body>
 </html>

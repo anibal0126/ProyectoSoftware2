@@ -30,10 +30,10 @@ public class Conexion implements Serializable{
      */
     public Connection conectar() throws ClassNotFoundException {
 
-        String url = "jdbc:mysql://localhost:3306/proyectosoftware2";
+        String url = "jdbc:mysql://localhost:3306/proyecto";
 
         String username = "root";
-        String password = "12345";
+        String password = "0711";
 
         try {
 
