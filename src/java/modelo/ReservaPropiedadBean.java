@@ -27,6 +27,7 @@ import org.primefaces.context.RequestContext;
 public class ReservaPropiedadBean implements Serializable {
 
     public String fechaInicioReserva, fechaFinReserva, estadoPago, casaEntera, precio, estadoReserva;
+    public int cedulaUsuario;
 
     public Usuario usuario;
     public List<Usuario> usuarios;
@@ -43,21 +44,22 @@ public class ReservaPropiedadBean implements Serializable {
 
         String consulta = "SELECT cedula, nombreCompleto FROM Usuario";
 
-        PreparedStatement pstmt = connect.prepareStatement(consulta);
-        ResultSet rs = pstmt.executeQuery();
-
-        while (rs.next()) {
-
-            Usuario usuarioListado = new Usuario();
-            usuarioListado.setId(rs.getInt("cedula"));
-            usuarioListado.setNombreCompleto(rs.getString("nombreCompleto"));
-
-            usuarios.add(usuarioListado);
+        try (
+               PreparedStatement pstmt = connect.prepareStatement(consulta)) {
+                ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                Usuario usuarioListado = new Usuario();
+                usuarioListado.setId(rs.getInt("cedula"));
+                usuarioListado.setNombreCompleto(rs.getString("nombreCompleto"));
+                
+                usuarios.add(usuarioListado);
+            }
+            
+            // close resources
+            rs.close();
         }
-
-        // close resources
-        rs.close();
-        pstmt.close();
 
         return usuarios;
     }
@@ -66,6 +68,14 @@ public class ReservaPropiedadBean implements Serializable {
 
         System.out.println("Va a reservar...");
         RequestContext context = RequestContext.getCurrentInstance();
+        
+        fechaInicioReserva = "";
+        fechaFinReserva = "";
+        estadoPago = "";
+        casaEntera = "";
+        precio = "";
+        estadoReserva = "";
+        
         context.execute("PF('formularioReserva').show();");
     }
 
@@ -75,7 +85,7 @@ public class ReservaPropiedadBean implements Serializable {
 
         connect = conexion.conectar();
 
-        PreparedStatement pstmt = connect.prepareStatement("INSERT INTO Reserva (fechaInicioReserva, fechaFinReserva, estadoPago, casaEntera, precio, estadoReserva, Usuario_cedula) value ( '" + fechaInicioReserva + "','" + fechaFinReserva + "','" + estadoPago + "','" + casaEntera + "','" + precio + "','" + estadoReserva + "'," + usuario.getId() + ")");
+        PreparedStatement pstmt = connect.prepareStatement("INSERT INTO Reserva (fechaInicioReserva, fechaFinReserva, estadoPago, casaEntera, precio, estadoReserva, Usuario_cedula) value ( '" + fechaInicioReserva + "','" + fechaFinReserva + "','" + estadoPago + "','" + casaEntera + "','" + precio + "','" + estadoReserva + "'," + cedulaUsuario + ")");
         int rs = pstmt.executeUpdate();
 
         RequestContext context = RequestContext.getCurrentInstance();
@@ -97,30 +107,41 @@ public class ReservaPropiedadBean implements Serializable {
         List<ReservaPropiedad> listadoReservas = new ArrayList<>();
         String consulta = "SELECT r.noReserva, r.fechaInicioReserva, r.fechaFinReserva, r.estadoPago, r.casaEntera, r.precio, r.estadoReserva, u.nombreCompleto FROM Reserva r JOIN Usuario u ON r.Usuario_cedula = u.cedula";
 
-        PreparedStatement pstmt = connect.prepareStatement(consulta);
-        ResultSet rs = pstmt.executeQuery();
-
-        while (rs.next()) {
-
-            ReservaPropiedad reserva = new ReservaPropiedad();
-            reserva.setNoReserva(rs.getInt("noReserva"));
-            reserva.setFechaInicioReserva(rs.getString("fechaInicioReserva"));
-            reserva.setFechaFinReserva(rs.getString("fechaFinReserva"));
-            reserva.setEstadoPago(rs.getString("estadoPago"));
-            reserva.setCasaEntera(rs.getString("casaEntera"));
-            reserva.setPrecio(rs.getString("precio"));
-            reserva.setEstadoReserva(rs.getString("estadoReserva"));
-            reserva.setUsuario(new Usuario(rs.getString("nombreCompleto")));
-
-            listadoReservas.add(reserva);
+        try (
+                PreparedStatement pstmt = connect.prepareStatement(consulta)) {
+                ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                ReservaPropiedad reserva = new ReservaPropiedad();
+                reserva.setNoReserva(rs.getInt("noReserva"));
+                reserva.setFechaInicioReserva(rs.getString("fechaInicioReserva"));
+                reserva.setFechaFinReserva(rs.getString("fechaFinReserva"));
+                reserva.setEstadoPago(rs.getString("estadoPago"));
+                reserva.setCasaEntera(rs.getString("casaEntera"));
+                reserva.setPrecio(rs.getString("precio"));
+                reserva.setEstadoReserva(rs.getString("estadoReserva"));
+                reserva.setUsuario(new Usuario(rs.getString("nombreCompleto")));
+                
+                listadoReservas.add(reserva);
+            }
+            
+            // close resources
+            rs.close();
         }
-
-        // close resources
-        rs.close();
-        pstmt.close();
 
         return listadoReservas;
     }
+
+    public int getCedulaUsuario() {
+        return cedulaUsuario;
+    }
+
+    public void setCedulaUsuario(int cedulaUsuario) {
+        this.cedulaUsuario = cedulaUsuario;
+    }
+    
+    
 
     public String getFechaInicioReserva() {
         return fechaInicioReserva;
