@@ -34,6 +34,10 @@ and open the template in the editor.
                     <f:facet name="header">Codigo</f:facet>
                         #{casa.codigo}
                 </h:column>
+                 <h:column>
+                    <f:facet name="header">Poblacion</f:facet>
+                        #{casa.poblacion}
+                </h:column>
                 <h:column>
                     <f:facet name="header">Descripción</f:facet>
                         #{casa.descripcion}
@@ -42,7 +46,7 @@ and open the template in the editor.
                     <f:facet name="header">Estado</f:facet>
                         #{casa.estado}
                 </h:column>
-                
+               
                 <h:column>
                     <f:facet name="header">Acciones</f:facet>
                     <p:commandButton value="Ver Dormitorios" action="#{dormitorioBean.listarDormitorio(casa.codigo, casa.noDormitorios)}"
