@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html class="contenedor" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <h:head>
+        <link type="text/css" href="newcss.css" rel="stylesheet"/>
+        <title>Proyecto Software2 Libros</title>
+
+    </h:head >
+<h:body style="text-align:center">
+  <p:growl id="mensajes" showDetail="true" life="2000" />
+  <div class="contentLogin"
+       style="display: flex; width: 100%; position: relative; justify-content: center;">
+      
+  <h:form>
+      <div class="welcomeLogin">
+	
+	</div>
+      <div class="ui-g-12">
+    <p:panel class="contenedor" header="BIENVENIDOS" style="width:300px">
+      <h:panelGrid columns="2" cellpadding="5">
+          <h:outputLabel for="username" value="Cedula:" style="font-size:20px !important" />
+            <br />
+                <h:inputText  id="username" 
+                     required="true" label="username" value="#{loginBean.cedula}" />
+            <br />
+                <h:outputLabel for="password" value="Contraseña:" style="font-size:20px !important" />
+            <br />
+                <p:password  id="contraseña" maxlength="20"						 style="font-size:20px !important"
+                     required="true" label="Contraseña" value="#{loginBean.contraseña}" />
+                <br />
+                <p:commandButton id="loginButton" value="Ingresar" action="#{loginBean.ingresar()}"/>
+                <br />
+                <br />
+            <p:link  value="Regitrarse">
+                 <f:param name="productId" value="10" />
+            </p:link>
+      </h:panelGrid>
+    </p:panel>
+          </div>
+  </h:form>
+       </div>
+</h:body>
+</html>

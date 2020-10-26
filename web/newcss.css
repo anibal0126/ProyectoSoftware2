@@ -7,8 +7,7 @@ and open the template in the editor.
     Created on : 15/09/2020, 10:02:17 PM
     Author     : USUARIO
 */
-.contenedor{ background-image: url("casa.jpg"); }
-
+.contenedor{ background-image: url("casa.jpg"); 
 .div { align-content: center }
 
 .labelText {width: 200px !important;white-space: normal}
@@ -19,6 +18,20 @@ and open the template in the editor.
 
 .column6 button {
   margin-right: 12px !important;
+}
+.contentLogin{
+	text-align: center;
+    background: url("images/login.png");
+    background-repeat: no-repeat;
+   	padding-top:10px;
+	height: 400px; 
+	background-size: 400px;
+ 	background-position: center;
+}
+
+.welcomeLogin{
+	padding-top: 40px;
+	font-size: 25px;
 }
 
 #myPropiedad{
