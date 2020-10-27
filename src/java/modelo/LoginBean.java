@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -28,7 +30,10 @@ public class LoginBean {
     
      public int cedula, contraseña;
      
-     private boolean autenticado;
+     private boolean autenticado=true;
+     
+     
+	
     
     public void ingresar() throws ClassNotFoundException, SQLException, IOException{
         
@@ -43,13 +48,16 @@ public class LoginBean {
         ResultSet rs = pstmt.executeQuery();
         
      if(rs.next()){
-         
-     FacesContext.getCurrentInstance().getExternalContext().redirect("listaCasasRurales.xhtml");
+     
+     FacesContext.getCurrentInstance().getExternalContext().redirect("faces/listaCasasRurales.xhtml");
      autenticado = true;
-         
      }else{
          
-         autenticado = false;
+         FacesContext context = FacesContext.getCurrentInstance();
+         
+        context.addMessage(null, new FacesMessage("Successful",  "Your message: " + "Hola German") );
+        context.addMessage(null, new FacesMessage("Second Message", "Additional Message Detail"));
+        
      }
      
  }
