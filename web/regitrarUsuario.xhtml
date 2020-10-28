@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html class="contenedor" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link type="text/css" href="newcss.css" rel="stylesheet"/>
+        <title>Proyecto Software2 Reserva de Casas Rurales</title>
+
+    </h:head>
+    <body style="text-align:center">
+        <div class="contenedor"
+             style="display: flex; width: 100%; position: relative; justify-content: center;">
+        <h:form>
+            <div class="contenedor">
+            <p:panel class="contenedor" header="BIENVENIDOS" style="width:300px">
+      <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel style="margin-right: 104px;">Cedula: </h:outputLabel>
+            <br />
+            <h:inputText value="#{registrarUsuarioBean.cedula}"></h:inputText> 
+            <br />
+            <h:outputLabel style="margin-right: 104px;">Contraseña: </h:outputLabel>
+            <br />
+            <h:inputText value="#{registrarUsuarioBean.contraseña}"></h:inputText>
+            <br />
+            <h:outputLabel style="margin-right: 104px;">Telefono: </h:outputLabel>
+            <br />
+            <h:inputText value="#{registrarUsuarioBean.telefono}"></h:inputText>
+            <br />
+            <h:outputLabel style="margin-right: 104px;">Nombre Completo</h:outputLabel>
+            <br />
+            <h:inputText value="#{registrarUsuarioBean.nombreCompleto}"></h:inputText> 
+            <br />
+            <h:outputLabel style="margin-right: 104px;">Direccion: </h:outputLabel>
+            <br />
+            <h:inputText value="#{registrarUsuarioBean.direccion}"></h:inputText> 
+            <br />
+            <p:commandButton value="Registrar" action="#{registrarUsuarioBean.registrarUsuario()}"></p:commandButton><br /><br /><br />
+            </h:panelGrid>
+    </p:panel>
+                </div>
+                </h:form>
+            </div>
+    </body>
+</html>

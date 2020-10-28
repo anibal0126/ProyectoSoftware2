@@ -54,11 +54,14 @@ public class LoginBean {
      }else{
          
          System.out.println("El usuario no existe o las credenciales son incorrectas.");
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "PrimeFaces Rocks."));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El usuario no existe o las credenciales son incorrectas.", "PrimeFaces Rocks."));
         
      }
      
  }
+    public void redirecciona() throws IOException{
+        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/registrarUsuario.xhtml");
+    }
 
     public Connection getConnect() {
         return connect;
