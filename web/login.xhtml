@@ -19,15 +19,17 @@ and open the template in the editor.
   <p:growl id="mensajes" showDetail="true" life="2000" />
   <div class="contentLogin"
        style="display: flex; width: 100%; position: relative; justify-content: center;">
-      
+
   <h:form>
+    <p:messages autoUpdate = "true" />
+
       <div class="welcomeLogin">
 	
 	</div>
       <div class="ui-g-12">
     <p:panel class="contenedor" header="BIENVENIDOS" style="width:300px">
       <h:panelGrid columns="2" cellpadding="5">
-          <h:outputLabel for="username" value="Cedula:" style="font-size:20px !important" />
+          <h:outputLabel for="username" value="Cedula123:" style="font-size:20px !important" />
             <br />
                 <h:inputText  id="username" 
                      required="true" label="username" value="#{loginBean.cedula}" />

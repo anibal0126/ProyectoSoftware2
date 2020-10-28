@@ -7,7 +7,7 @@ and open the template in the editor.
     Created on : 15/09/2020, 10:02:17 PM
     Author     : USUARIO
 */
-.contenedor{ background-image: url("casa.jpg"); 
+.contenedor{ background-image: url("casa.jpg"); }
 .div { align-content: center }
 
 .labelText {width: 200px !important;white-space: normal}

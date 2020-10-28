@@ -53,10 +53,8 @@ public class LoginBean {
      autenticado = true;
      }else{
          
-         FacesContext context = FacesContext.getCurrentInstance();
-         
-        context.addMessage(null, new FacesMessage("Successful",  "Your message: " + "Hola German") );
-        context.addMessage(null, new FacesMessage("Second Message", "Additional Message Detail"));
+         System.out.println("El usuario no existe o las credenciales son incorrectas.");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "PrimeFaces Rocks."));
         
      }
      
