@@ -32,9 +32,6 @@ public class LoginBean {
      
      private boolean autenticado=true;
      
-     
-	
-    
     public void ingresar() throws ClassNotFoundException, SQLException, IOException{
         
      System.out.println(cedula);
@@ -60,7 +57,8 @@ public class LoginBean {
      
  }
     public void redirecciona() throws IOException{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/registrarUsuario.xhtml");
+        System.out.println("HOlas");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/regitrarUsuario.xhtml");
     }
 
     public Connection getConnect() {
@@ -86,9 +84,6 @@ public class LoginBean {
     public void setAutenticado(boolean autenticado) {
         this.autenticado = autenticado;
     }
-    
-    
-   
 
     public int getCedula() {
         return cedula;
