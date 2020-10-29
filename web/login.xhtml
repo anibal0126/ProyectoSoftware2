@@ -15,39 +15,38 @@ and open the template in the editor.
         <title>Proyecto Software2 Libros</title>
 
     </h:head >
-<h:body style="text-align:center">
-  <p:growl id="mensajes" showDetail="true" life="2000" />
-  <div class="contentLogin"
-       style="display: flex; width: 100%; position: relative; justify-content: center;">
+    <h:body style="text-align:center">
+        <p:growl id="mensajes" showDetail="true" life="2000" />
+        <div class="contentLogin"
+             style="display: flex; width: 100%; position: relative; justify-content: center;">
 
-  <h:form>
-    <p:messages autoUpdate = "true" />
+            <div class="ui-g-12" align="center">
+                <p:messages autoUpdate = "true" />
+                <p:panel class="contenedor" header="BIENVENIDOS" style="width:300px">
+                    <h:panelGrid cellpadding="5" style="text-align: center">
 
-      <div class="welcomeLogin">
-	</div>
-      <div class="ui-g-12">
-    <p:panel class="contenedor" header="BIENVENIDOS" style="width:300px">
-      <h:panelGrid columns="2" cellpadding="5">
-          <h:outputLabel for="username" value="Cedula123:" style="font-size:20px !important" />
-            <br />
-                <h:inputText  id="username" 
-                     required="true" label="username" value="#{loginBean.cedula}" />
-            <br />
-                <h:outputLabel for="password" value="Contraseña:" style="font-size:20px !important" />
-            <br />
-                <p:password  id="contraseña" maxlength="20"						 style="font-size:20px !important"
-                     required="true" label="Contraseña" value="#{loginBean.contraseña}" />
-                <br />
-                <p:commandButton id="loginButton" value="Ingresar" action="#{loginBean.ingresar()}"/>
-                <br />
-                <br />
-                <p:commandButton id="loginRegistrar" value="Registrar" action="#{loginBean.redirecciona()}"/>
-      </h:panelGrid>
-    </p:panel>
-          </div>
-   
-  </h:form>
-       </div>
-  
-</h:body>
+                        <h:form>
+                            <h:outputLabel for="username" value="Cedula123:" style="font-size:20px !important" />
+                            <br />
+                            <h:inputText  id="username" 
+                                          required="true" label="username" value="#{loginBean.cedula}" />
+                            <br />
+                            <h:outputLabel for="password" value="Contraseña:" style="font-size:20px !important" />
+                            <br />
+                            <p:password  id="contraseña" maxlength="20"						 style="font-size:20px !important"
+                                         required="true" label="Contraseña" value="#{loginBean.contraseña}" />
+                            <br />
+                            <p:commandButton id="loginButton" value="Ingresar" action="#{loginBean.ingresar()}"/>
+                            <br />
+                            <br />
+                        </h:form>
+
+                    </h:panelGrid>
+                    <h:form>
+                        <p:commandButton id="loginRegistrar" value="Registrar" action="#{loginBean.redirecciona()}"/>
+                    </h:form>
+                </p:panel>
+            </div>
+        </div>
+    </h:body>
 </html>
