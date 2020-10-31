@@ -33,7 +33,7 @@ public class Conexion implements Serializable{
         String url = "jdbc:mysql://localhost:3306/reservacasarural";
 
         String username = "root";
-        String password = "";
+        String password = "0711";
 
         try {
 

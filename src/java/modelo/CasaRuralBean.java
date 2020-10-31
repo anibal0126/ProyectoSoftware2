@@ -60,15 +60,14 @@ public class CasaRuralBean implements Serializable  {
     }
     
     
-    public void modificarPropiedad()throws ClassNotFoundException, SQLException{
+    public void modificarPropiedad()throws ClassNotFoundException, SQLException, IOException{
         
         connect=conexion.conectar();
         
-        PreparedStatement pstmt = connect.prepareStatement("update casarural set descricion = '"+descripcion+"'"+", estado = '"+estado+"'"+", noCocinas = '"+noCocinas+"'"+", noComedores = '"+noComedores+"'"+", noDormitorios = '"+noDormitorios+"'"+", noPlazas = '"+noPlazas+"'"+", poblacion = '"+poblacion+"'"+" where codigoCasaRural = '"+codigoCasaRural+"'");
+        PreparedStatement pstmt = connect.prepareStatement("update casarural set descripcion = '"+descripcion+"'"+", estado = '"+estado+"'"+", noComedores = '"+noComedores+"'"+", noPlazas = '"+noPlazas+"'"+", poblacion = '"+poblacion+"'"+" where codigo = '"+codigoCasaRural+"'");
         int rs = pstmt.executeUpdate();
         
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("PF('myPropiedad').hide();");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/listaCasasRurales.xhtml");
         
     }
     
@@ -115,8 +114,12 @@ public class CasaRuralBean implements Serializable  {
         return casasRurales;
     }
     
-    public void redirecciona() throws IOException{
+    public void redirecciona(int codigo) throws IOException{
         System.out.println("HOlas");
+        
+        codigoCasaRural = codigo;
+        
+        
         FacesContext.getCurrentInstance().getExternalContext().redirect("faces/modificarPropiedad.xhtml");
     }
     public List<CasaRural> getCasasRuralesFiltro() throws ClassNotFoundException, SQLException {
