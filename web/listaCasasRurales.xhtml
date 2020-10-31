@@ -53,7 +53,7 @@ and open the template in the editor.
                                          style="font-size: 14px;" />
                         <p:commandButton value="Ver Cocinas" action="#{cocinaBean.listarCocina(casa.codigo, casa.noCocinas)}"
                                          style="font-size: 14px;" />
-                        <p:commandButton value="Modificar" action="#{casaRuralBean.redirecciona()}"
+                        <p:commandButton value="Modificar" action="#{casaRuralBean.redirecciona(casa.codigo)}"
                                          style="font-size: 14px;" />
                     </h:column>
 
