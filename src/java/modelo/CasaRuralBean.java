@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -63,7 +64,7 @@ public class CasaRuralBean implements Serializable  {
         
         connect=conexion.conectar();
         
-        PreparedStatement pstmt = connect.prepareStatement("update casarural set descricion = '"+descripcion+"'"+", estado = '"+estado+"'"+", noCocinas = '"+noCocinas+"'"+", noComedores = '"+noComedores+"'"+", noDormitorios = '"+noDormitorios+"'"+", noPlazas = '"+noPlazas+"'"+", poblacion = '"+poblacion+"'"+"where codigoCasaRural = '"+codigoCasaRural+"'");
+        PreparedStatement pstmt = connect.prepareStatement("update casarural set descricion = '"+descripcion+"'"+", estado = '"+estado+"'"+", noCocinas = '"+noCocinas+"'"+", noComedores = '"+noComedores+"'"+", noDormitorios = '"+noDormitorios+"'"+", noPlazas = '"+noPlazas+"'"+", poblacion = '"+poblacion+"'"+" where codigoCasaRural = '"+codigoCasaRural+"'");
         int rs = pstmt.executeUpdate();
         
         RequestContext context = RequestContext.getCurrentInstance();
@@ -112,6 +113,11 @@ public class CasaRuralBean implements Serializable  {
         pstmt.close();
 
         return casasRurales;
+    }
+    
+    public void redirecciona() throws IOException{
+        System.out.println("HOlas");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/modificarPropiedad.xhtml");
     }
     public List<CasaRural> getCasasRuralesFiltro() throws ClassNotFoundException, SQLException {
 
