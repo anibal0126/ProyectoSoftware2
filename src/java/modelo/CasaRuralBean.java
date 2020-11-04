@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -33,7 +34,7 @@ public class CasaRuralBean implements Serializable  {
     
     public int  noDormitorios, noCocinas, noBaños, noComedores, noPlazas, codigoCasaRural;
     
-    public String poblacion, descripcion, estado, filtroPoblacion, filtroId;
+    public String poblacion, descripcion, estado, filtroPoblacion, filtroId, filtroDescripcion;
     
     Conexion conexion=new Conexion();
     
@@ -122,6 +123,50 @@ public class CasaRuralBean implements Serializable  {
         
         FacesContext.getCurrentInstance().getExternalContext().redirect("faces/modificarPropiedad.xhtml");
     }
+    
+    public void quitar(int codigo) throws IOException{
+        System.out.println("Va a eliminar la propiedad");
+        
+        codigoCasaRural = codigo;
+        
+        
+        RequestContext.getCurrentInstance().execute("PF('confirmDlg').show();");
+    }
+    
+    public void eliminarPropiedad() throws ClassNotFoundException, SQLException{
+        
+        connect = conexion.conectar();
+        
+        System.out.println("codigo a eliminar: "+codigoCasaRural);
+        
+        String consulta = "SELECT codigo FROM `casarural` WHERE (codigo IN (SELECT d.CasaRural_codigo FROM dormitorio d WHERE d.CasaRural_codigo = "+codigoCasaRural+") OR codigo IN (SELECT c.CasaRural_codigo FROM cocina c WHERE c.CasaRural_codigo = "+codigoCasaRural+")) AND codigo = "+codigoCasaRural;
+
+        PreparedStatement pstmtSelect = connect.prepareStatement(consulta);
+        ResultSet rsSelect = pstmtSelect.executeQuery();
+        
+        int codigoPropiedad = 0;
+
+        while (rsSelect.next()) {
+            
+            codigoPropiedad = rsSelect.getInt("codigo");
+        }
+        
+        if(codigoPropiedad != 0)
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No se puede eliminar esta propiedad, ya que tiene relación con algunos registros.", "PrimeFaces Rocks."));
+        } else {
+            PreparedStatement pstmt = connect.prepareStatement("DELETE FROM casarural WHERE codigo = "+codigoCasaRural);
+            int rs = pstmt.executeUpdate();
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Propiedad eliminada con éxito!.", "PrimeFaces Rocks."));
+        }
+        
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('confirmDlg').hide();");
+  
+        
+    }
+    
     public List<CasaRural> getCasasRuralesFiltro() throws ClassNotFoundException, SQLException {
 
         connect=conexion.conectar();
@@ -144,6 +189,14 @@ public class CasaRuralBean implements Serializable  {
             if (!filtroId.equalsIgnoreCase("")) {
                 System.out.println("Entro filtroAutor: " + filtroId);
                 consulta = "select codigo, poblacion from casarural WHERE codigo = '" + filtroId + "'";
+            }
+        }
+        
+        if (filtroDescripcion != null) {
+
+            if (!filtroDescripcion.equalsIgnoreCase("")) {
+                System.out.println("Entro filtroAutor: " + filtroDescripcion);
+                consulta = "select codigo, poblacion from casarural WHERE descripcion LIKE '%" + filtroDescripcion + "'%";
             }
         }
 
@@ -189,6 +242,7 @@ public class CasaRuralBean implements Serializable  {
 
         filtroPoblacion = "";
         filtroId = "";
+        filtroDescripcion = "";
     }
 
     public String getFiltroPoblacion() {
@@ -206,8 +260,14 @@ public class CasaRuralBean implements Serializable  {
     public void setFiltroId(String filtroId) {
         this.filtroId = filtroId;
     }
-
     
+    public String getFiltroDescripcion() {
+        return filtroDescripcion;
+    }
+
+    public void setFiltroDescripcion(String filtroDescripcion) {
+        this.filtroDescripcion = filtroDescripcion;
+    }
 
     public int getNoDormitorios() {
         return noDormitorios;

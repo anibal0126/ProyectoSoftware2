@@ -15,9 +15,8 @@ and open the template in the editor.
 
     </h:head >
     <h:body>
+        <p:growl id="mensajes" showDetail="true" life="2000" />
         <h:form>
-            <p:growl id="messages" showDetail="true"/>
-
             <p:menuButton value="Opciones">
                 <p:menuitem value="Buscar"  url="/faces/listaPorPoblacion.xhtml" update="messages" icon="pi pi-save"/>
                 <p:menuitem value="Modificar"  ajax="false" icon="pi pi-times"/>
@@ -29,6 +28,22 @@ and open the template in the editor.
         <div align="center" class="div">
             <h:form id="propiedades">
                 <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Casas Rurales</h2>
+                <div style="text-align: left; width: 85%;">
+                    <hr />
+                    <h3 style="text-decoration: underline;">Filtros de búsqueda</h3>
+
+
+                    <h:panelGroup>
+                        <h:outputLabel style="margin-right: 104px;">Poblacion:</h:outputLabel><h:inputText value="#{casaRuralBean.filtroPoblacion}"></h:inputText> <br /><br />
+                        <h:outputLabel style="margin-right: 120px;">Código:</h:outputLabel><h:inputText value="#{casaRuralBean.filtroId}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"></h:inputText> <br /><br />
+                        <h:outputLabel style="margin-right: 104px;">Descripción</h:outputLabel><h:inputText value="#{casaRuralBean.filtroDescripcion}"></h:inputText> <br /><br />
+                    </h:panelGroup>
+
+                    <p:commandButton value="Buscar" update="@form" style="margin-right: 10px;" icon="ui-icon-search"/>
+                    <p:commandButton value="Limpiar filtros" action="#{casaRuralBean.limpiarFiltros}" update="@form" icon="ui-icon-arrowrefresh-1-w"/>
+                    <br />
+                    <hr />
+                </div>
                 <h:dataTable  value="#{casaRuralBean.casasRurales}" var="casa" border="2" id="listadoPropiedades" style="background-color: azure; width: 85%;">
                     <h:column>
                         <f:facet name="header">Codigo</f:facet>
@@ -53,7 +68,7 @@ and open the template in the editor.
                                          style="font-size: 14px;" />
                         <p:commandButton value="Ver Cocinas" action="#{cocinaBean.listarCocina(casa.codigo, casa.noCocinas)}"
                                          style="font-size: 14px;" />
-                        <p:commandButton value="Modificar" action="#{casaRuralBean.redirecciona(casa.codigo)}"
+                        <p:commandButton value="Eliminar Propiedad" action="#{casaRuralBean.quitar(casa.codigo)}"
                                          style="font-size: 14px;" />
                     </h:column>
 
@@ -209,6 +224,15 @@ and open the template in the editor.
                 </div>
             </h:form>
         </p:dialog>
+        
+
+        <p:confirmDialog widgetVar="confirmDlg" message="¿Esta seguro de eliminar esta propiedad?" >
+            <h:form>
+                <p:commandButton value="Si" action="#{casaRuralBean.eliminarPropiedad()}" update=":propiedades:listadoPropiedades" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </h:form>
+        </p:confirmDialog>
+
 
     </h:body> 
 </html>
