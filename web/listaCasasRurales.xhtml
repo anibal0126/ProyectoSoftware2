@@ -15,7 +15,7 @@ and open the template in the editor.
 
     </h:head >
     <h:body>
-        <p:growl id="mensajes" showDetail="true" life="2000" />
+        
         <h:form>
             <p:menuButton value="Opciones">
                 <p:menuitem value="Buscar"  url="/faces/listaPorPoblacion.xhtml" update="messages" icon="pi pi-save"/>
@@ -25,6 +25,7 @@ and open the template in the editor.
                 <p:menuitem value="Volver" url="http://www.primefaces.org" icon="pi pi-home"/>
             </p:menuButton>
         </h:form>
+        <p:growl id="mensajes" showDetail="true" life="2000" />
         <div align="center" class="div">
             <h:form id="propiedades">
                 <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Casas Rurales</h2>
@@ -67,6 +68,8 @@ and open the template in the editor.
                         <p:commandButton value="Ver Dormitorios" action="#{dormitorioBean.listarDormitorio(casa.codigo, casa.noDormitorios)}"
                                          style="font-size: 14px;" />
                         <p:commandButton value="Ver Cocinas" action="#{cocinaBean.listarCocina(casa.codigo, casa.noCocinas)}"
+                                         style="font-size: 14px;" />
+                        <p:commandButton value="Modificar" action="#{casaRuralBean.redirecciona(casa.codigo)}"
                                          style="font-size: 14px;" />
                         <p:commandButton value="Eliminar Propiedad" action="#{casaRuralBean.quitar(casa.codigo)}"
                                          style="font-size: 14px;" />
@@ -232,7 +235,14 @@ and open the template in the editor.
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </h:form>
         </p:confirmDialog>
-
+        
+        <p:dialog header="Error" widgetVar="error_eliminar_propiedad" modal="true" height="80" resizable="false">
+            <h:outputText value="No se puede eliminar esta propiedad, ya que tiene relación con algunos registros." />
+        </p:dialog>
+        
+        <p:dialog header="Información" widgetVar="eliminar_propiedad_correcta" modal="true" height="80" resizable="false">
+            <h:outputText value="¡Propiedad eliminada con éxito!." />
+        </p:dialog>
 
     </h:body> 
 </html>

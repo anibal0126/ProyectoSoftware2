@@ -153,12 +153,15 @@ public class CasaRuralBean implements Serializable  {
         
         if(codigoPropiedad != 0)
         {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No se puede eliminar esta propiedad, ya que tiene relación con algunos registros.", "PrimeFaces Rocks."));
+            System.out.println("No se puede eliminar esta propiedad");
+            RequestContext.getCurrentInstance().execute("PF('error_eliminar_propiedad').show();");
+            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No se puede eliminar esta propiedad, ya que tiene relación con algunos registros.", "PrimeFaces Rocks."));
         } else {
             PreparedStatement pstmt = connect.prepareStatement("DELETE FROM casarural WHERE codigo = "+codigoCasaRural);
             int rs = pstmt.executeUpdate();
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Propiedad eliminada con éxito!.", "PrimeFaces Rocks."));
+            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Propiedad eliminada con éxito!.", "PrimeFaces Rocks."));
+            System.out.println("Propiedad eliminada");
+            RequestContext.getCurrentInstance().execute("PF('eliminar_propiedad_correcta').show();");
         }
         
         RequestContext context = RequestContext.getCurrentInstance();
