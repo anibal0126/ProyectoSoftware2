@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -27,16 +28,38 @@ import org.primefaces.context.RequestContext;
 public class ReservaPropiedadBean implements Serializable {
 
     public String fechaInicioReserva, fechaFinReserva, estadoPago, casaEntera, precio, estadoReserva;
-    public int cedulaUsuario;
+    public int cedulaUsuario, codigoPropiedad;
 
     public Usuario usuario;
-    public List<Usuario> usuarios;
+    public List<SelectItem> usuarios, propiedades;
 
     Conexion conexion = new Conexion();
 
     Connection connect = null;
+    
+    public List<SelectItem> getListarPropiedades() throws SQLException, ClassNotFoundException {
 
-    public List<Usuario> getListarUsuarios() throws SQLException, ClassNotFoundException {
+        propiedades = new ArrayList<>();
+
+        connect = conexion.conectar();
+
+        String consulta = "SELECT codigo, descripcion FROM casarural";
+
+        try (
+            
+            PreparedStatement pstmt = connect.prepareStatement(consulta);
+            ResultSet rs = pstmt.executeQuery()) {  
+            
+            while (rs.next()) {
+                
+                propiedades.add(new SelectItem(rs.getInt("codigo"), rs.getString("descripcion")));
+            }
+        }
+
+        return propiedades;
+    }
+
+    public List<SelectItem> getListarUsuarios() throws SQLException, ClassNotFoundException {
 
         usuarios = new ArrayList<>();
 
@@ -45,19 +68,14 @@ public class ReservaPropiedadBean implements Serializable {
         String consulta = "SELECT cedula, nombreCompleto FROM Usuario";
 
         try (
-               PreparedStatement pstmt = connect.prepareStatement(consulta)) {
-                ResultSet rs = pstmt.executeQuery();
+            
+            PreparedStatement pstmt = connect.prepareStatement(consulta)) {
+            ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {
-                
-                Usuario usuarioListado = new Usuario();
-                usuarioListado.setId(rs.getInt("cedula"));
-                usuarioListado.setNombreCompleto(rs.getString("nombreCompleto"));
-                
-                usuarios.add(usuarioListado);
+                usuarios.add(new SelectItem(rs.getInt("cedula"), rs.getString("nombreCompleto")));
             }
             
-            // close resources
             rs.close();
         }
 
@@ -75,6 +93,7 @@ public class ReservaPropiedadBean implements Serializable {
         casaEntera = "";
         precio = "";
         estadoReserva = "";
+        codigoPropiedad = 0;
         
         context.execute("PF('formularioReserva').show();");
     }
@@ -85,7 +104,7 @@ public class ReservaPropiedadBean implements Serializable {
 
         connect = conexion.conectar();
 
-        PreparedStatement pstmt = connect.prepareStatement("INSERT INTO Reserva (fechaInicioReserva, fechaFinReserva, estadoPago, casaEntera, precio, estadoReserva, Usuario_cedula) value ( '" + fechaInicioReserva + "','" + fechaFinReserva + "','" + estadoPago + "','" + casaEntera + "','" + precio + "','" + estadoReserva + "'," + cedulaUsuario + ")");
+        PreparedStatement pstmt = connect.prepareStatement("INSERT INTO Reserva (fechaInicioReserva, fechaFinReserva, estadoPago, casaEntera, precio, estadoReserva, Usuario_cedula, casarural_codigo) value ( '" + fechaInicioReserva + "','" + fechaFinReserva + "','" + estadoPago + "','" + casaEntera + "','" + precio + "','" + estadoReserva + "'," + cedulaUsuario + "," + codigoPropiedad + ")");
         int rs = pstmt.executeUpdate();
 
         RequestContext context = RequestContext.getCurrentInstance();
@@ -139,6 +158,14 @@ public class ReservaPropiedadBean implements Serializable {
 
     public void setCedulaUsuario(int cedulaUsuario) {
         this.cedulaUsuario = cedulaUsuario;
+    }
+
+    public int getCodigoPropiedad() {
+        return codigoPropiedad;
+    }
+
+    public void setCodigoPropiedad(int codigoPropiedad) {
+        this.codigoPropiedad = codigoPropiedad;
     }
     
     

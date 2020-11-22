@@ -78,25 +78,30 @@ and open the template in the editor.
                                                                                                     <f:selectItem itemValue="Pendiente de pago" itemLabel="Pendiente de pago" />
                                                                                                     <f:selectItem itemValue="Cancelado" itemLabel="Cancelado" />
                                                                                                 </h:selectOneMenu> <br /><br />
-                <h:outputLabel style="margin-right: 104px;">Casa entera: </h:outputLabel> <h:selectOneMenu value="#{reservaPropiedadBean.casaEntera}">
+                <h:outputLabel style="margin-right: 104px;">Casa entera: </h:outputLabel> <p:selectOneMenu value="#{reservaPropiedadBean.casaEntera}">
                                                                                             <f:selectItem itemValue="Si" itemLabel="Si" />
                                                                                             <f:selectItem itemValue="No" itemLabel="No" />
-                                                                                        </h:selectOneMenu> <br /><br />
+                                                                                        </p:selectOneMenu> <br /><br />
                 <h:outputLabel style="margin-right: 104px;">Precio: </h:outputLabel><h:inputText value="#{reservaPropiedadBean.precio}"></h:inputText> <br /><br />
-                <h:outputLabel style="margin-right: 104px;">Estado de la reserva: </h:outputLabel><h:selectOneMenu value="#{reservaPropiedadBean.estadoReserva}">
+                <h:outputLabel style="margin-right: 104px;">Estado de la reserva: </h:outputLabel><p:selectOneMenu value="#{reservaPropiedadBean.estadoReserva}">
                                                                                                     <f:selectItem itemValue="Reservada" itemLabel="Reservada" />
                                                                                                     <f:selectItem itemValue="Pendiente" itemLabel="Pendiente" />
                                                                                                     <f:selectItem itemValue="Cancelada" itemLabel="Cancelada" />
-                                                                                                </h:selectOneMenu> <br /><br />
-                <h:outputLabel style="margin-right: 104px;">Usuario: </h:outputLabel> <h:selectOneMenu value="#{reservaPropiedadBean.cedulaUsuario}">
-                                                                                                    <f:selectItem itemValue="1" itemLabel="Anibal" />
-                                                                                                    <f:selectItem itemValue="2" itemLabel="Camilo" />
-                                                                                                    <f:selectItem itemValue="3" itemLabel="Darwin" />
-                                                                                                </h:selectOneMenu> <br /><br />
+                                                                                                </p:selectOneMenu> <br /><br />
+                <h:outputLabel style="margin-right: 104px;">Usuario: </h:outputLabel> <p:selectOneMenu value="#{reservaPropiedadBean.cedulaUsuario}">
+                                                                                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                                                                                    <f:selectItems value="#{reservaPropiedadBean.listarUsuarios}" />
+                                                                                                </p:selectOneMenu> <br /><br />
+                <h:outputLabel style="margin-right: 104px;">Propiedad </h:outputLabel> <p:selectOneMenu value="#{reservaPropiedadBean.codigoPropiedad}">
+                                                                                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                                                                                    <f:selectItems value="#{reservaPropiedadBean.listarPropiedades}" />
+                                                                                                </p:selectOneMenu> <br /><br />
                     
                 <br /><br />
                 
-                <p:commandButton value="Reservar Propiedad" action="#{reservaPropiedadBean.guardarReserva()}" style="font-size: 14px; float: left !important; margin-left: 87px;" update=":reservasForm:listadoReservas"></p:commandButton><br /><br /><br />
+                <p:commandButton value="Reservar Propiedad" action="#{reservaPropiedadBean.guardarReserva()}" style="font-size: 14px; float: left !important; margin-left: 87px;" update=":reservasForm:listadoReservas">
+                    <f:ajax execute="@form" render="@form" />
+                </p:commandButton><br /><br /><br />
             </h:form>
         </p:dialog>    
     </h:body> 

@@ -87,8 +87,33 @@ public class CasaRuralBean implements Serializable  {
         
         connect=conexion.conectar();
         
+        String consulta = "SELECT codigo, poblacion, noDormitorios, noCocinas, noBaños, noComedores, noPlazas, descripcion, estado FROM casarural WHERE 1=1";
+        
+        if (filtroPoblacion != null) {
+
+            if (!filtroPoblacion.equalsIgnoreCase("")) {
+                System.out.println("Entro filtroNombre: " + filtroPoblacion);
+                consulta += " AND poblacion = '" + filtroPoblacion + "'";
+            }
+        }
+
+        if (filtroId != null) {
+
+            if (!filtroId.equalsIgnoreCase("")) {
+                System.out.println("Entro filtroAutor: " + filtroId);
+                consulta += " AND codigo = '" + filtroId + "'";
+            }
+        }
+        
+        if (filtroDescripcion != null) {
+
+            if (!filtroDescripcion.equalsIgnoreCase("")) {
+                System.out.println("Entro filtroAutor: " + filtroDescripcion);
+                consulta += " AND descripcion LIKE '%" + filtroDescripcion + "'%";
+            }
+        }
+        
         List<CasaRural> casasRurales = new ArrayList<>();
-        String consulta = "select codigo, poblacion, noDormitorios, noCocinas, noBaños, noComedores, noPlazas, descripcion, estado from casarural";
 
         PreparedStatement pstmt = connect.prepareStatement(consulta);
         ResultSet rs = pstmt.executeQuery();
@@ -242,7 +267,7 @@ public class CasaRuralBean implements Serializable  {
         context.execute("PF('listadoEspecificaciones').show();");
     }
     public void limpiarFiltros() {
-
+        System.out.println("Hola");
         filtroPoblacion = "";
         filtroId = "";
         filtroDescripcion = "";

@@ -25,7 +25,6 @@ and open the template in the editor.
                 <p:menuitem value="Volver" url="http://www.primefaces.org" icon="pi pi-home"/>
             </p:menuButton>
         </h:form>
-        <p:growl id="mensajes" showDetail="true" life="2000" />
         <div align="center" class="div">
             <h:form id="propiedades">
                 <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Casas Rurales</h2>
@@ -42,6 +41,7 @@ and open the template in the editor.
 
                     <p:commandButton value="Buscar" update="@form" style="margin-right: 10px;" icon="ui-icon-search"/>
                     <p:commandButton value="Limpiar filtros" action="#{casaRuralBean.limpiarFiltros}" update="@form" icon="ui-icon-arrowrefresh-1-w"/>
+                    <p:commandButton value="Agregar Propiedad" action="#{casaRuralBean.agregarPropiedad()}" style="" icon="ui-icon-plus"></p:commandButton>
                     <br />
                     <hr />
                 </div>
@@ -76,9 +76,7 @@ and open the template in the editor.
                     </h:column>
 
                 </h:dataTable>
-                <br /><br />
-                <h:commandButton value="Agegar Propiedad" action="#{casaRuralBean.agregarPropiedad()}"
-                                 style="font-size: 14px;"></h:commandButton>
+                
             </h:form>                            
         </div>
 
@@ -201,12 +199,9 @@ and open the template in the editor.
         </p:dialog>
         <p:dialog header="Registrar Propiedad" id="myPropiedad" widgetVar="myPropiedad" >
             <h:form>
-                <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Listado de Libros</h2>
-
                 <div style="text-align: left; width: 85%;">
                     <hr />
                     <h3 style="text-decoration: underline;">Registrar Propiedad</h3>
-
 
                     <h:panelGroup>
                         <h:outputLabel style="margin-right: 104px;">Poblacion:</h:outputLabel><h:inputText value="#{casaRuralBean.poblacion}"></h:inputText> <br /><br />
@@ -216,7 +211,6 @@ and open the template in the editor.
                         <h:outputLabel style="margin-right: 104px;">No de Comedores:</h:outputLabel><h:inputText value="#{casaRuralBean.noComedores}"></h:inputText> <br /><br />
                         <h:outputLabel style="margin-right: 120px;">No de Garajes:</h:outputLabel><h:inputText value="#{casaRuralBean.noPlazas}"></h:inputText> <br /><br />
                         <h:outputLabel style="margin-right: 120px;">Descripcion:</h:outputLabel><h:inputText value="#{casaRuralBean.descripcion}"></h:inputText> <br /><br />
-
                     </h:panelGroup>
 
                     <p:commandButton value="Cancelar" action="#{casaRuralBean.cancelar()}" update="@form" style="margin-right: 10px;" icon="ui-icon-cancel"/>

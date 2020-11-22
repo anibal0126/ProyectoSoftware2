@@ -15,13 +15,14 @@ public class ReservaPropiedad {
 
     public int noReserva;
     public String fechaInicioReserva, fechaFinReserva, estadoPago, casaEntera, precio, estadoReserva;
+    CasaRural propiedad;
 
     public Usuario usuario;
 
     public ReservaPropiedad() {
     }
 
-    public ReservaPropiedad(String fechaInicioReserva, String fechaFinReserva, String estadoPago, String casaEntera, String precio, String estadoReserva, Usuario usuario) {
+    public ReservaPropiedad(String fechaInicioReserva, String fechaFinReserva, String estadoPago, String casaEntera, String precio, String estadoReserva, Usuario usuario, CasaRural propiedad) {
 
         this.fechaInicioReserva = fechaInicioReserva;
         this.fechaFinReserva = fechaFinReserva;
@@ -30,6 +31,7 @@ public class ReservaPropiedad {
         this.precio = precio;
         this.estadoReserva = estadoReserva;
         this.usuario = usuario;
+        this.propiedad = propiedad;
 
     }
 
@@ -95,6 +97,14 @@ public class ReservaPropiedad {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+    
+    public CasaRural getPropiedad() {
+        return propiedad;
+    }
+
+    public void setPropiedad(CasaRural propiedad) {
+        this.propiedad = propiedad;
     }
 
 }

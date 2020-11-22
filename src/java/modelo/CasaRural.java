@@ -116,6 +116,11 @@ public class CasaRural {
     public void setPropietario(Propietario propietario) {
         this.propietario = propietario;
     }
+
+    @Override
+    public String toString() {
+        return descripcion; //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }
