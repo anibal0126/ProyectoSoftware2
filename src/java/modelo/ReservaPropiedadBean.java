@@ -28,7 +28,7 @@ import org.primefaces.context.RequestContext;
 public class ReservaPropiedadBean implements Serializable {
 
     public String fechaInicioReserva, fechaFinReserva, estadoPago, casaEntera, precio, estadoReserva;
-    public int cedulaUsuario, codigoPropiedad;
+    public int cedulaUsuario, codigoPropiedad, pagoReserva, codigoReserva, reserva;
 
     public Usuario usuario;
     public List<SelectItem> usuarios, propiedades;
@@ -97,6 +97,33 @@ public class ReservaPropiedadBean implements Serializable {
         
         context.execute("PF('formularioReserva').show();");
     }
+    
+    public void gestionarPago(int codigoReserva) {
+
+        System.out.println("Va a gestionar pago...");
+        RequestContext context = RequestContext.getCurrentInstance();
+        
+        this.codigoReserva = codigoReserva;
+        
+        context.execute("PF('formularioGestionarPago').show();");
+    }
+    
+    public void guardarPago() throws ClassNotFoundException, SQLException {
+
+        System.out.println("Entro a guarar pago: "+codigoReserva);
+
+        connect = conexion.conectar();
+
+        PreparedStatement pstmt = connect.prepareStatement("INSERT INTO reservad (fecha_registro, importe, Reserva_noReserva) value ( NOW(), '" + pagoReserva + "', "+codigoReserva+" )");
+        int rs = pstmt.executeUpdate();
+        
+        PreparedStatement pstmt2 = connect.prepareStatement("UPDATE Reserva SET estadoPago = '" + estadoPago + "' WHERE noReserva = "+codigoReserva);
+        int rs2 = pstmt2.executeUpdate();
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('formularioGestionarPago').hide();");
+
+    }
 
     public void guardarReserva() throws ClassNotFoundException, SQLException {
 
@@ -105,6 +132,7 @@ public class ReservaPropiedadBean implements Serializable {
         connect = conexion.conectar();
 
         PreparedStatement pstmt = connect.prepareStatement("INSERT INTO Reserva (fechaInicioReserva, fechaFinReserva, estadoPago, casaEntera, precio, estadoReserva, Usuario_cedula, casarural_codigo) value ( '" + fechaInicioReserva + "','" + fechaFinReserva + "','" + estadoPago + "','" + casaEntera + "','" + precio + "','" + estadoReserva + "'," + cedulaUsuario + "," + codigoPropiedad + ")");
+
         int rs = pstmt.executeUpdate();
 
         RequestContext context = RequestContext.getCurrentInstance();
@@ -150,6 +178,45 @@ public class ReservaPropiedadBean implements Serializable {
         }
 
         return listadoReservas;
+    }
+    
+    public void listarPagos(int codigoReserva) {
+
+        System.out.println("Va a listar los pagos..."+codigoReserva);
+        
+        reserva = codigoReserva;
+        RequestContext.getCurrentInstance().update("listadoPagos");
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('listadoPagos').show();");
+    }
+    
+    public List<ReservaDPago> getPagos() throws ClassNotFoundException, SQLException {
+
+        connect = conexion.conectar();
+
+        List<ReservaDPago> listadoPagos = new ArrayList<>();
+        String consulta = "SELECT fecha_registro, importe FROM reservad WHERE Reserva_noReserva = "+reserva;
+        
+        System.out.println("Pagos. "+consulta);
+
+        try (
+                PreparedStatement pstmt = connect.prepareStatement(consulta)) {
+                ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                ReservaDPago reservaD = new ReservaDPago();
+                reservaD.setFechaPago(rs.getString("fecha_registro"));
+                reservaD.setImporte(rs.getInt("importe"));
+                
+                listadoPagos.add(reservaD);
+            }
+            
+            // close resources
+            rs.close();
+        }
+
+        return listadoPagos;
     }
 
     public int getCedulaUsuario() {
@@ -221,9 +288,24 @@ public class ReservaPropiedadBean implements Serializable {
     public Usuario getUsuario() {
         return usuario;
     }
-
+    
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+    
+    public int getPagoReserva() {
+        return pagoReserva;
+    }
+    
+    public void setPagoReserva(int pagoReserva) {
+        this.pagoReserva = pagoReserva;
+    }
 
+    public int getCodigoReserva() {
+        return codigoReserva;
+    }
+
+    public void setCodigoReserva(int codigoReserva) {
+        this.codigoReserva = codigoReserva;
+    }
 }

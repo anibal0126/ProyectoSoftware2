@@ -16,16 +16,16 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <h:form>
-    <p:growl id="messages" showDetail="true"/>
- 
-        <p:menuButton value="Opciones">
-            <p:menuitem value="Buscar"  url="/faces/listaPorPoblacion.xhtml" update="messages" icon="pi pi-save"/>
-            <p:menuitem value="Modificar"  ajax="false" icon="pi pi-times"/>
-            <p:menuitem value="Agregar Propiedad" url="/faces/listaCasasRurales.xhtml" ajax="false" icon="pi pi-times"/>
-            <p:separator />
-            <p:menuitem value="Volver" url="http://www.primefaces.org" icon="pi pi-home"/>
-        </p:menuButton>
-</h:form>
+            <p:growl id="messages" showDetail="true"/>
+
+            <p:menuButton value="Opciones">
+                <p:menuitem value="Buscar"  url="/faces/listaPorPoblacion.xhtml" update="messages" icon="pi pi-save"/>
+                <p:menuitem value="Modificar"  ajax="false" icon="pi pi-times"/>
+                <p:menuitem value="Agregar Propiedad" url="/faces/listaCasasRurales.xhtml" ajax="false" icon="pi pi-times"/>
+                <p:separator />
+                <p:menuitem value="Volver" url="http://www.primefaces.org" icon="pi pi-home"/>
+            </p:menuButton>
+        </h:form>
         <div align="center" class="div">
             <h:form id="reservasForm">
                 <h2 style="background-color: rgb(0 0 0 / 70%); padding: 8px; color: white; width: 85%;">Listado de Reservas de Casas Rurales</h2><br />
@@ -63,6 +63,13 @@ and open the template in the editor.
                     <f:facet name="header">Usuario</f:facet>
                         #{reserva.usuario}
                 </h:column>
+                <h:column>
+                    <f:facet name="header">Acciones</f:facet>
+                    <p:commandButton value="Gestionar pagos" action="#{reservaPropiedadBean.gestionarPago(reserva.noReserva)}"
+                                     style="font-size: 14px;" />
+                    <p:commandButton value="Listar pagos" action="#{reservaPropiedadBean.listarPagos(reserva.noReserva)}"
+                                     style="font-size: 14px;" />
+                </h:column>
             </h:dataTable>
             <br /><br />
             
@@ -73,11 +80,11 @@ and open the template in the editor.
             <h:form>
                 <h:outputLabel style="margin-right: 104px;">Fecha inicio de la reserva: </h:outputLabel><h:inputText value="#{reservaPropiedadBean.fechaInicioReserva}"></h:inputText> <br /><br />
                 <h:outputLabel style="margin-right: 104px;">Fecha fin de la reserva: </h:outputLabel><h:inputText value="#{reservaPropiedadBean.fechaFinReserva}"></h:inputText> <br /><br />
-                <h:outputLabel style="margin-right: 120px;">Estado del pago: </h:outputLabel><h:selectOneMenu value="#{reservaPropiedadBean.estadoPago}">
+                <h:outputLabel style="margin-right: 120px;">Estado del pago: </h:outputLabel><p:selectOneMenu value="#{reservaPropiedadBean.estadoPago}">
                                                                                                     <f:selectItem itemValue="Pagado" itemLabel="Pagado" />
                                                                                                     <f:selectItem itemValue="Pendiente de pago" itemLabel="Pendiente de pago" />
                                                                                                     <f:selectItem itemValue="Cancelado" itemLabel="Cancelado" />
-                                                                                                </h:selectOneMenu> <br /><br />
+                                                                                                </p:selectOneMenu> <br /><br />
                 <h:outputLabel style="margin-right: 104px;">Casa entera: </h:outputLabel> <p:selectOneMenu value="#{reservaPropiedadBean.casaEntera}">
                                                                                             <f:selectItem itemValue="Si" itemLabel="Si" />
                                                                                             <f:selectItem itemValue="No" itemLabel="No" />
@@ -103,6 +110,36 @@ and open the template in the editor.
                     <f:ajax execute="@form" render="@form" />
                 </p:commandButton><br /><br /><br />
             </h:form>
-        </p:dialog>    
+        </p:dialog>
+        <p:dialog header="Gestionar Pago" id="formularioGestionarPago" widgetVar="formularioGestionarPago">
+            <h:form>
+                <h:outputLabel style="margin-right: 104px;">Valor del pago: </h:outputLabel>
+                <h:inputText value="#{reservaPropiedadBean.pagoReserva}"></h:inputText>
+                <br /><br />
+                <h:outputLabel style="margin-right: 120px;">Estado del pago: </h:outputLabel>
+                <h:selectOneMenu value="#{reservaPropiedadBean.estadoPago}">
+                    <f:selectItem itemValue="Pagado" itemLabel="Pagado" />
+                    <f:selectItem itemValue="Pendiente de pago" itemLabel="Pendiente de pago" />
+                    <f:selectItem itemValue="Cancelado" itemLabel="Cancelado" />
+                </h:selectOneMenu>
+                <br /><br />
+                <p:commandButton value="Guardar Pago" action="#{reservaPropiedadBean.guardarPago()}" style="font-size: 14px; float: left !important; margin-left: 87px;" update=":reservasForm:listadoReservas">
+                    <f:ajax execute="@form" render="@form" />
+                </p:commandButton><br /><br /><br />
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog header="Listado de Pagos" id="listadoPagos" widgetVar="listadoPagos">
+            <h:dataTable  value="#{reservaPropiedadBean.pagos}" var="reservaPago" border="2" id="listadoPagosTable" style="background-color: azure; width: 100%;">
+                <h:column>
+                    <f:facet name="header">Fecha del pago</f:facet>
+                        #{reservaPago.fechaPago}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Valor del pago</f:facet>
+                        #{reservaPago.importe}
+                </h:column>
+            </h:dataTable>
+        </p:dialog>
     </h:body> 
 </html>
