@@ -5,14 +5,17 @@
  */
 package modelo;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  *
  * @author anibalMuñoz
  */
 public class regitrarUsuario {
     
+    @NotEmpty
     public int cedula;
-    
+    @NotEmpty
     public int contraseña;
     
     public double telefono;

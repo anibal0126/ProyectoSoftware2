@@ -14,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -26,6 +27,7 @@ public class registrarUsuarioBean {
     Connection connect = null;
      
      Conexion conexion= new Conexion();
+    
     
     public int cedula;
     

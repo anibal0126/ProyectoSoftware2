@@ -18,16 +18,19 @@ and open the template in the editor.
         <div class="contenedor"
              style="display: flex; width: 100%; position: relative; justify-content: center;">
         <h:form>
+   
             <div class="contenedor">
+            
             <p:panel class="contenedor" header="BIENVENIDOS" style="width:300px">
       <h:panelGrid columns="2" cellpadding="5">
+            <h:messages for="idCedula" />
             <h:outputLabel style="margin-right: 160px;">Cedula: </h:outputLabel>
             <br />
-            <h:inputText value="#{registrarUsuarioBean.cedula}"></h:inputText> 
+            <h:inputText id="idCedula" value="#{registrarUsuarioBean.cedula}" required="true"></h:inputText> 
             <br />
             <h:outputLabel style="margin-right: 130px;">Contraseña: </h:outputLabel>
             <br />
-            <h:inputText value="#{registrarUsuarioBean.contraseña}"></h:inputText>
+            <h:inputText value="#{registrarUsuarioBean.contraseña}" required="true"></h:inputText>
             <br />
             <h:outputLabel style="margin-right: 150px;">Telefono: </h:outputLabel>
             <br />
@@ -41,11 +44,12 @@ and open the template in the editor.
             <br />
             <h:inputText value="#{registrarUsuarioBean.direccion}"></h:inputText> 
             <br />
-            <p:commandButton value="Registrar" action="#{registrarUsuarioBean.registrarUsuario()}"></p:commandButton><br /><br /><br />
+            <p:commandButton id="btnRegistrar" value="Registrar" action="#{registrarUsuarioBean.registrarUsuario()}"></p:commandButton><br /><br /><br />
             </h:panelGrid>
     </p:panel>
                 </div>
                 </h:form>
             </div>
     </body>
+   
 </html>
