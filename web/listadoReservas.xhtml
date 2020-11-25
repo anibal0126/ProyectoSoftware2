@@ -131,7 +131,7 @@ and open the template in the editor.
         
         <p:dialog header="Listado de Pagos" id="listadoPagos" widgetVar="listadoPagos">
             <h:dataTable  value="#{reservaPropiedadBean.pagos}" var="reservaPago" border="2" id="listadoPagosTable" style="background-color: azure; width: 100%;">
-                <h:column>
+                <h:column> 
                     <f:facet name="header">Fecha del pago</f:facet>
                         #{reservaPago.fechaPago}
                 </h:column>
